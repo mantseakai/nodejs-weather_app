@@ -50,11 +50,33 @@ app.get('/help', (req, res) =>{
 
 app.get('/weather', (req, res) =>{
 
-	if(!req.query.address){
-		return res.send({
-			error: 'Please provide address'
-		})
+	if(!req.query.auto_location)
+	{
+		if(!req.query.address){
+			return res.send({
+				error: 'Please provide address'
+			})
+		}
 	}
+	else
+	{
+		console.log('Getting Forecast')
+		forecast(req.query.latitude, req.query.longitude, (error, forecastData) => {
+			if(error)
+			{
+		  		return res.send({ error})
+			}
+
+			res.send({
+				location: req.query.address,
+				forecast: forecastData,
+				address: req.query.address
+			})
+
+		})
+
+	}
+	
 
 
 	geocode(req.query.address,(error, {latitude, longitude,location} = {}) => {
