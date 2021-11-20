@@ -29,22 +29,22 @@ app.use(express.static(publicDirectoryPath))
 app.get('', (req, res) =>{
 	res.render('index',{
 		title: 'Weather App',
-		name: 'Sky Skilo'
+		name: 'Mantse Akai'
 	})
 })
 
 app.get('/about', (req, res) =>{
 	res.render('about',{
 		title: 'About App',
-		name: 'Sky Skilo'
+		name: 'Mantse Akai'
 	})
 })
 
 app.get('/help', (req, res) =>{
 	res.render('help',{
 		title: 'Help',
-		message: 'Help message for the Weather App',
-		name: 'Sky Skilo'
+		message: 'Enter a location in the text box and client on search to view weather information of the provided location.',
+		name: 'Mantse Akai'
 			})
 })
 
