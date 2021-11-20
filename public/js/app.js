@@ -14,7 +14,7 @@ weatherform.addEventListener('submit', (e)=>{
 
 	msg_forecast.innerHTML = 'Loading....'
 	msg_error.innerHTML = ''
-	fetch('http://localhost:3000/weather?address='+location).then((response)=>{
+	fetch('/weather?address='+location).then((response)=>{
 
 
 		response.json().then((data) => {
