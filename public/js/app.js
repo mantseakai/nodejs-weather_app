@@ -18,7 +18,7 @@ msg_forecast.innerHTML = ''
 
 	msg_forecast.innerHTML = 'Loading....'
 	msg_error.innerHTML = ''
-	fetch('/weather?auto_location=yes&latitude='+position.coords.latitude+'&longitude='+position.coords.longitude).then((response)=>{
+	fetch('/weather?auto_location=yes').then((response)=>{
 
 		response.json().then((data) => {
 
