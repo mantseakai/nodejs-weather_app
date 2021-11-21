@@ -10,6 +10,7 @@ const currentbutton = document.querySelector('#current_button')
 msg_forecast.innerHTML = ''
 
 
+
 function getLocation() {
 	if (navigator.geolocation) {
 		
@@ -51,7 +52,7 @@ function getLocation() {
 
   currentbutton.addEventListener('click',(e)=>{
 	e.preventDefault()
-	  getLocation()
+	
   })
 
 weatherform.addEventListener('click', (e)=>{
@@ -75,6 +76,8 @@ weatherform.addEventListener('click', (e)=>{
 			{
 				console.log(data.location)
 				console.log(data.forecast)
+				console.log(data.ip_address)
+				console.log(data.geo)
 
 
 				msg_forecast.innerHTML = data.location

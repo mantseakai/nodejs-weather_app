@@ -4,7 +4,8 @@ const hbs = require('hbs')
 
 const geocode = require('./utils/geocode')
 const forecast = require('./utils/forecast')
-
+const requestIp = require('request-ip');
+const geoip = require('geoip-lite');
 
 const app = express()
 
@@ -61,6 +62,8 @@ app.get('/weather', (req, res) =>{
 	else
 	{
 		console.log('Getting Forecast')
+		
+		console.log(clientIp)
 		forecast(req.query.latitude, req.query.longitude, (error, forecastData) => {
 			if(error)
 			{
@@ -92,10 +95,15 @@ app.get('/weather', (req, res) =>{
 		  		return res.send({ error})
 			}
 
+			const clientIp = requestIp.getClientIp(req); 
+
+			const geo = geoip.lookup(clientIp);
 			res.send({
 				location: location,
 				forecast: forecastData,
-				address: req.query.address
+				address: req.query.address,
+				ip_address: clientIp,
+				geo: geo
 			})
 
 		})
