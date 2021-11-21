@@ -11,16 +11,10 @@ msg_forecast.innerHTML = ''
 
 
 
-function getLocation() {
-	if (navigator.geolocation) {
-		
-	  navigator.geolocation.getCurrentPosition(showPosition);
-	} else { 
-	  console.log("Geolocation is not supported by this browser.");
-	}
-  }
-  
-  function showPosition(position) {
+
+
+  currentbutton.addEventListener('click',(e)=>{
+	e.preventDefault()
 
 	msg_forecast.innerHTML = 'Loading....'
 	msg_error.innerHTML = ''
@@ -38,7 +32,7 @@ function getLocation() {
 				console.log(data.location)
 				console.log(data.forecast)
 
-
+				search.value = data.geo.city
 				msg_forecast.innerHTML = data.location
 				msg_error.innerHTML = data.forecast.description
 				msg_another.innerHTML = data.forecast.temperature +' degrees but feels like '+ data.forecast.feelslike
@@ -47,11 +41,6 @@ function getLocation() {
 		})
 
 	})
-
-  }
-
-  currentbutton.addEventListener('click',(e)=>{
-	e.preventDefault()
 	
   })
 

@@ -58,6 +58,39 @@ app.get('/weather', (req, res) =>{
 				error: 'Please provide address'
 			})
 		}
+		else
+		{
+			geocode(req.query.address,(error, {latitude, longitude,location} = {}) => {
+				if(error)
+				{
+					return res.send({
+						error
+					})
+				}
+				forecast(latitude, longitude, (error, forecastData) => {
+					if(error)
+					{
+						  return res.send({ error})
+					}
+		
+					const clientIp = requestIp.getClientIp(req); 
+		
+					const geo = geoip.lookup(clientIp);
+					res.send({
+						location: location,
+						forecast: forecastData,
+						address: req.query.address,
+						ip_address: clientIp,
+						geo: geo
+					})
+		
+				})
+		
+				
+				
+		
+			})
+		}
 	}
 	else
 	{
@@ -85,36 +118,7 @@ app.get('/weather', (req, res) =>{
 	
 
 
-	geocode(req.query.address,(error, {latitude, longitude,location} = {}) => {
-		if(error)
-		{
-			return res.send({
-				error
-			})
-		}
-		forecast(latitude, longitude, (error, forecastData) => {
-			if(error)
-			{
-		  		return res.send({ error})
-			}
-
-			const clientIp = requestIp.getClientIp(req); 
-
-			const geo = geoip.lookup(clientIp);
-			res.send({
-				location: location,
-				forecast: forecastData,
-				address: req.query.address,
-				ip_address: clientIp,
-				geo: geo.city
-			})
-
-		})
-
-		
-		
-
-	})
+	
 
 
 })
