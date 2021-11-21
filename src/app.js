@@ -62,16 +62,19 @@ app.get('/weather', (req, res) =>{
 	else
 	{
 		console.log('Getting Forecast')
-		
+		const clientIp = requestIp.getClientIp(req); 
+
+		const geo = geoip.lookup(clientIp);
+
 		console.log(clientIp)
-		forecast(req.query.latitude, req.query.longitude, (error, forecastData) => {
+		forecast(geo.ll[0], geo.ll[1], (error, forecastData) => {
 			if(error)
 			{
 		  		return res.send({ error})
 			}
 
 			res.send({
-				location: req.query.address,
+				location: geo.city,
 				forecast: forecastData,
 				address: req.query.address
 			})
@@ -103,7 +106,7 @@ app.get('/weather', (req, res) =>{
 				forecast: forecastData,
 				address: req.query.address,
 				ip_address: clientIp,
-				geo: geo
+				geo: geo.city
 			})
 
 		})
