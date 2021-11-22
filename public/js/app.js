@@ -18,6 +18,7 @@ msg_forecast.innerHTML = ''
 
 	msg_forecast.innerHTML = 'Loading....'
 	msg_error.innerHTML = ''
+	msg_another.innerHTML =''
 	fetch('/weather?auto_location=yes').then((response)=>{
 
 		response.json().then((data) => {
@@ -51,6 +52,8 @@ weatherform.addEventListener('click', (e)=>{
 
 	msg_forecast.innerHTML = 'Loading....'
 	msg_error.innerHTML = ''
+	msg_another.innerHTML =''
+	
 	fetch('/weather?address='+location).then((response)=>{
 
 
